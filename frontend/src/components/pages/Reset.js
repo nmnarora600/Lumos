@@ -44,7 +44,7 @@ const [loadAlert, setLoadAlert]=React.useState(false);
     const data = new FormData(event.currentTarget);
    
 
-    const resp = await fetch("http://localhost:4000/api/Reset", 
+    const resp = await fetch("https://lumosback.namanarora.in/api/Reset", 
     
     {
       method: "POST",

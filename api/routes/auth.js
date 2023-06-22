@@ -1,18 +1,19 @@
 const express = require("express");
 const router = express.Router();
-require('dotenv').config();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
-const JWT_SECRET_TOKEN = process.env.JWT_SECRET_TOKEN;
+const JWT_SECRET_TOKEN = "blogB1ynaman";
 const jwt = require("jsonwebtoken");
 const fetchUser = require("../middleware/fetchUser");
 const nodemailer=require("nodemailer")
 const crypto=require('crypto')
-
+require('dotenv').config();
+const passwd= process.env.PASS
 
 //checking connection
 router.get("/", (req, res) => {
+  console.log(JWT_SECRET_TOKEN);
   res.json("api is working");
 });
 
@@ -31,6 +32,7 @@ router.post(
     if (errors.isEmpty()) {
       try {
         console.log("in tryphase")
+	console.log(req.body);
         let newUser = await User.findOne({ email: req.body.email });
 
         if (newUser) {
@@ -56,6 +58,9 @@ router.post(
           
           const authToken = jwt.sign(data, JWT_SECRET_TOKEN);
           success = true;
+
+	res.setHeader('Access-Control-Allow-Origin', '*');
+
           console.log("leave tryphase")
           return res.json({ success, authToken });
         }
@@ -85,7 +90,7 @@ router.post(
  
       const { email, password } = req.body;
       try {
-       
+       console.log(req.body);
         let user = await User.findOne({ email: email });
         if (!user) {
           return res.status(400).json({ error: "User Not exists" });
@@ -118,15 +123,17 @@ router.post(
 router.post("/getuser", fetchUser, 
 async (req,res)=>{
     try {
-    
+	console.log("in get user");    
       let userId=req.user.id; 
-
+console.log(userId);
       
     
-        const user= await User.findById(userId).select("-password")
-        res.send(user);
+        const user= await User.findById(userId).select("-password");
+res.setHeader('Access-Control-Allow-Origin', '*');
+
+       return res.send(user);
     } catch (error) {
-      // console.log("could not get the details")
+       console.log("could not get the details")
         return res.status(500).send("Some Error Occured")
     }
 })
@@ -160,7 +167,7 @@ router.post("/reset",[body("email", "invalid email").isEmail()], async (req, res
                     secure: false, // true for 465, false for other ports
                     auth: {
                       user: 'k1vikky@gmail.com', // generated ethereal user
-                      pass: process.env.PASS, // generated ethereal password
+                      pass: passwd, // generated ethereal password
                     },
                   });
                 
@@ -173,7 +180,7 @@ router.post("/reset",[body("email", "invalid email").isEmail()], async (req, res
                   let info = await transporter.sendMail({
                     from: 'k1vikky@gmail.com', // sender address
                     to: `${user.email}`, // list of receivers
-                    subject: "Password Reset ✔", // Subject line
+                    subject: "Lumos Password Reset ✔", // Subject line
                     text: `Dear User,
 
                     We have received a request to reset your password. Please find below your temporary password:

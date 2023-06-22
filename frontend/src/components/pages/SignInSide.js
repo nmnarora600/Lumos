@@ -39,7 +39,7 @@ export default function SignInSide(props) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const resp = await fetch("http://localhost:4000/api/login", 
+    const resp = await fetch("https://lumosback.namanarora.in/api/login", 
     
     {
       method: "POST",

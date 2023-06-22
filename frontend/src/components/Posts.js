@@ -7,7 +7,7 @@ const Posts = (props) => {
   // const img='http://localhost:4000/'+{cover}.cover;
   let destImg={cover}.cover;
   let finalimg=destImg.slice(7);
-  const img='http://localhost:4000/'+finalimg;
+  const img='https://lumosback.namanarora.in/'+finalimg;
  
   const[shouldRender, setShouldRender]=useState(false);
   useEffect(()=>{

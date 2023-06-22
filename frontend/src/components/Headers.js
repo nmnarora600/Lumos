@@ -26,7 +26,7 @@ const Headers = (props) => {
   useEffect(()=>{
     
     let getUserName = async () => {
-      const response = await fetch("http://localhost:4000/api/getuser", {
+      const response = await fetch("https://lumosback.namanarora.in/api/getuser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -29,7 +29,7 @@ props.setProgress(20);
     const handlePostDelete=async(e)=>{
       
       e.preventDefault();
-      const delResult= await fetch(`http://localhost:4000/remove/${id}`,{
+      const delResult= await fetch(`https://lumosback.namanarora.in/remove/${id}`,{
         method:'DELETE',
         headers:{
           "Content-Type": "application/json",
@@ -56,13 +56,13 @@ props.setProgress(20);
         props.showAlert("Unauthorized Access", "danger")
         navigate('/login')
       }
-        fetch(`http://localhost:4000/posts/${id}`).then(response=>{
+        fetch(`https://lumosback.namanarora.in/posts/${id}`).then(response=>{
             response.json().then(postInfo=>{
                 setPostInfo(postInfo)
             })
         })
         const getAuthorID=async ()=>{
-            const response = await fetch("http://localhost:4000/api/getuser", {
+            const response = await fetch("https://lumosback.namanarora.in/api/getuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ props.setProgress(20);
     const {title, cover, content,_id, createdAt,updatedAt, author, authorID}=postInfo
     let destImg={cover}.cover;
     let finalimg=destImg.slice(7);
-    const img='http://localhost:4000/'+finalimg;
+    const img='https://lumosback.namanarora.in/'+finalimg;
    props.setProgress(40);
 
 

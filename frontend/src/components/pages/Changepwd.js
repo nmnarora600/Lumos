@@ -42,7 +42,7 @@ React.useEffect(()=>{
           props.showAlert("Passwords must be same", 'danger')
         }
         else{
-            const resp = await fetch("http://localhost:4000/api/changepwd", 
+            const resp = await fetch("https://lumosback.namanarora.in/api/changepwd", 
         
         {
           method: "POST",

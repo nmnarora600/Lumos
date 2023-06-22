@@ -41,7 +41,7 @@ const handleReset=()=>{
         }
       
         
-        const resp= await fetch(`http://localhost:4000/edit/${id}`,{
+        const resp= await fetch(`https://lumosback.namanarora.in/edit/${id}`,{
           method:"PUT",
           body: data
         })
@@ -71,7 +71,7 @@ const handleReset=()=>{
         navigate('/login')
       }
 
-        fetch(`http://localhost:4000/posts/${id}`).then(
+        fetch(`https://lumosback.namanarora.in/posts/${id}`).then(
             response=>{
                 response.json().then(postInfo=>{
                     setTitle(postInfo.title)
@@ -85,20 +85,20 @@ const handleReset=()=>{
 
 
         const isauth=async ()=>{
-          const checkPerson= await fetch("http://localhost:4000/api/getuser", {
+          const checkPerson= await fetch("https://lumosback.namanarora.in/api/getuser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
             "auth-token": sessionStorage.getItem("token"),
           },
         });
-      
         const result=await checkPerson.json();
         setuserID(result._id);
         }
       
+isauth();
       const author=async ()=>{
-        const check=await fetch(`http://localhost:4000/posts/${id}`,{
+        const check=await fetch(`https://lumosback.namanarora.in/posts/${id}`,{
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -112,11 +112,14 @@ const handleReset=()=>{
           navigate('/')
         }
       }
-isauth();
 author();
     },[id,navigate,props])
+if(authorID==='')
+return
 
     if(userID!==authorID){
+console.log('uid',userID);
+console.log('aid',authorID);
       props.showAlert("Unauthorized Access","danger")
       navigate('/')
     }

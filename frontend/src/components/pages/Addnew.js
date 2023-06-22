@@ -19,7 +19,7 @@ const createNewPost=async (e)=>{
     data.set('authorID',authorID);
     e.preventDefault();
     
-    const resp= await fetch("http://localhost:4000/api/feed",{
+    const resp= await fetch("https://lumosback.namanarora.in/api/feed",{
       method:"POST",
       body: data
     })
@@ -50,7 +50,7 @@ var authorPresent=sessionStorage.getItem('token');
 
 useEffect(()=>{
   let getUserName = async () => {
-    const response = await fetch("http://localhost:4000/api/getuser", {
+    const response = await fetch("https://lumosback.namanarora.in/api/getuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,9 +79,13 @@ useEffect(()=>{
 
     //To add title of file after upload
    const handleUpload=(e)=>{
-        if(e.target.files[0])
+        if(e.target.files[0] && e.target.files[0].size<204800){
         setCoverTitle(e.target.files[0].name);
         setFiles(e.target.files)
+}
+else{
+props.showAlert("Size Limit Exceed", "danger");
+}
     }
 
     // to access content of quill

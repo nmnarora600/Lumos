@@ -81,6 +81,9 @@ transition: transform .6s ease;
   transform: scale(1.1);
   font-weight: 500;
   color: white;
+
+
+
  transition: transform .6s ease;
 }
 
@@ -99,7 +102,7 @@ header nav h4:hover{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 200%;
  
 }
 

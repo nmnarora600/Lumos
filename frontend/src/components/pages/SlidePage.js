@@ -11,7 +11,7 @@ const SlidePage = (props) => {
     if(!sessionStorage.getItem('token')){
       navigate('/login');
     }
-    fetch("http://localhost:4000/api/allposts").then(response=>{
+    fetch("https://lumosback.namanarora.in/api/allposts").then(response=>{
       response.json().then(posts=>{
         setPosts(posts);
         setLoading(false);

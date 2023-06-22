@@ -3,7 +3,7 @@ const router = express.Router();
 const fetchUser = require("../middleware/fetchUser");
 const Post = require("../models/Post");
 const multer = require("multer");
-const uploadMiddleware = multer({ dest: "../api/uploads/" });
+const uploadMiddleware = multer({ dest: "../api/uploads/"});
 const fs = require("fs");
 const { findByIdAndDelete } = require("../models/User");
 
@@ -42,7 +42,7 @@ const {id}=req.params;
 let result= await Post.findById(req.params.id);
 if(result===null){
 
-  res.status(404).json({jj:"Not Found"});
+return  res.status(404).json({jj:"Not Found"});
 }
 
  let savefile = await Post.findByIdAndUpdate(id,{
@@ -50,9 +50,9 @@ if(result===null){
     summary: req.body.summary,
     content: req.body.content,
   },{new:true});
-  res.json(savefile)
+ return res.json(savefile)
     } catch{
-      res.status(500).send("Some Error Occured")
+      return res.status(500).send("Some Error Occured")
     }
 })
 
@@ -67,16 +67,16 @@ router.delete('/:id',fetchUser,async(req,res)=>{
       return res.status(401).send("Unauthorized");
     }
     if(!result){
-      req.status(404).send("Not Found");
+      return req.status(404).send("Not Found");
     }
     else{
       let a=await Post.findByIdAndDelete(req.params.id);
-      res.send(result);
+      return res.send(result);
     }
   
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Some Error Occured");
+    return res.status(500).send("Some Error Occured");
   }
 
  }
@@ -86,9 +86,9 @@ router.delete('/:id',fetchUser,async(req,res)=>{
 router.get('/', async (req, res)=>{
     try {
         const posts = await Post.find();
-        res.json({posts})
+        return res.json({posts})
     } catch (error) {
-        res.status(500).json({error:"Some Error Occured"})
+        return res.status(500).json({error:"Some Error Occured"})
     }
 })
 
@@ -97,9 +97,9 @@ router.get('/:id', async (req, res)=>{
     try {
         const{id}=(req.params);
         const post = await Post.findById(id);
-        res.json(post);
+        return res.json(post);
     } catch (error) {
-        res.status(500).json({error:"Some Error Occured"})
+       return res.status(500).json({error:"Some Error Occured"})
     }
 })
 

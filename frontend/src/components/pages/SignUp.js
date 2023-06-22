@@ -57,7 +57,7 @@ const handleCheck=()=>{
     props.showAlert("You must agree to the terms & conditions", 'danger');
    }
 else{
-  const resp = await fetch("http://localhost:4000/api/SignUp", 
+  const resp = await fetch("https://lumosback.namanarora.in/api/SignUp", 
     
   {
     method: "POST",
